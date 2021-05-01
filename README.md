@@ -28,7 +28,9 @@ Manage Script
 
 3)cd bash-xray-script
 
-4)./xray.sh
+4)sudo chmod 777 xray.sh
+
+4)sudo ./xray.sh
 
 5)UUID එකයි ඔයාගෙ DNS එකයි installation එක අතර තුරදි ඉල්ලයි එතකොට දෙන්න 
 
