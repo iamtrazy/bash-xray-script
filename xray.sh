@@ -7,8 +7,8 @@ rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
-rm -rf config.json
-cat << EOF > /usr/local/etc/xray/config.json
+rm -rf /usr/local/etc/xray/config.json
+cat << EOF > /usr/local/etc/xray/config0.json
 {
     "inbounds": [
 	{
