@@ -13,6 +13,9 @@ rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
 
+#disable ubuntu firewall
+ufw disable
+
 #running xray install script for linux - systemd
 
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
@@ -157,7 +160,6 @@ EOF
 systemctl daemon-reload
 systemctl enable xray
 systemctl restart xray
-systemctl status xray
 
 #install bbr
 
