@@ -1,4 +1,7 @@
 #!/bin/sh
+
+#input uuid & domain
+
 echo Enter a valid gen4 UUID:
 read uuid
 echo Enter a valid domain:
