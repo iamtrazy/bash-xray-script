@@ -161,7 +161,8 @@ systemctl status xray
 
 #install bbr
 
-git clone https://github.com/teddysun/across ~/
+mkdir ~/across
+git clone https://github.com/teddysun/across ~/across
 chmod 777 ~/across
 bash ~/across/bbr.sh
 
