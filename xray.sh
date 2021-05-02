@@ -1,7 +1,7 @@
 #!/bin/sh
-echo enter a valid gen4 UUID:
+echo Enter a valid gen4 UUID:
 read uuid
-echo enter a valid domain:
+echo Enter a valid domain:
 read domain
 
 #configure timezone to sri lanka standards
