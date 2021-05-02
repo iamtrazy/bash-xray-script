@@ -3,10 +3,19 @@ echo enter a valid gen4 UUID:
 read uuid
 echo enter a valid domain:
 read domain
+
+#configure timezone to sri lanka standards
+
 rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
+
+#running xray install script for linux - sytemd
+
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+
+#adding new configuration files 
+
 rm -rf /usr/local/etc/xray/config.json
 cat << EOF > /usr/local/etc/xray/config0.json
 {
@@ -123,12 +132,18 @@ cat << EOF > /usr/local/etc/xray/config2.json
 	]
 }
 EOF
+
+#accuring a ssl certificate
+
 apt-get update && apt-get install curl -y && apt-get install cron -y && apt-get install socat -y
 curl https://get.acme.sh | sh
 source ~/.bashrc
 bash ~/.acme.sh/acme.sh --issue -d $domain --alpn -k ec-256
 mkdir /etc/xray && sudo ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
 chmod 644 /etc/xray/xray.key
+
+#starting xray core on sytem startup
+
 cat << EOF > /etc/systemd/system/xray.service.d/10-donot_touch_single_conf.conf
 # In case you have a good reason to do so, duplicate this file in the same directory and make your customizes there.
 # Or all changes you made will be lost!  # Refer: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
