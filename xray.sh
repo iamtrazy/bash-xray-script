@@ -13,7 +13,7 @@ rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
 
-#running xray install script for linux - sytemd
+#running xray install script for linux - systemd
 
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
