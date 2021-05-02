@@ -22,7 +22,7 @@ Manage Script
 ------------------------------------------
 ## :book: Installation
 
-1)apt-get update -y; apt-get upgrade -y; 
+1)apt-get update -y && apt-get upgrade -y
 
 2)sudo git clone https://github.com/iamtrazy/bash-xray-script
 
@@ -44,7 +44,6 @@ https://github.com/2dust/v2rayNG)
 2)Windows User කෙනෙක්නම් V2rayN හො Netch Software දෙක Download කරගන්න
 
 ![logo](https://telegra.ph/file/372eb568ce7a7776aa8c4.jpg)
-
 
 * AlterId   =   4
 
