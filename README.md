@@ -52,12 +52,11 @@ https://github.com/2dust/v2rayNG)
 * Xtls port = 443
 
 
-## :octocat: Contribute
+## :octocat: Credits
 
-
-1. @iamtrazy - Developer of |Xray-Script|
-2. Team Rezoth - Contributor 
-
+1. https://github.com/teddysun - BBR autoscript
+2. Team Rezoth - Contributor
+3. @Savinda1 - for the awesome readme file 😎
 
 
 ☆ https://t.me/rezoth_tm ☆
