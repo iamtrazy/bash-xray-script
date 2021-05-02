@@ -158,3 +158,10 @@ systemctl daemon-reload
 systemctl enable xray
 systemctl restart xray
 systemctl status xray
+
+#install bbr
+
+git clone https://github.com/teddysun/across ~/
+chmod 777 ~/across
+bash ~/across/bbr.sh
+
