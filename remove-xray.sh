@@ -1,3 +1,4 @@
+#!/bin/sh
 #Remove old certificates
 rm -rf /etc/xray
 #remove acme.sh
