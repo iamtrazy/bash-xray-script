@@ -1,6 +1,6 @@
 # Bash|Xray-Script
 
-* UPDATE 03/05/2021
+* UPDATE 03/05/2021 - Added Remove script
 
 
 ![logo](https://telegra.ph/file/4e19dd26926234ca32b68.jpg)
