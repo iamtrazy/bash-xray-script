@@ -1,6 +1,6 @@
 # Bash|Xray-Script
 
-* UPDATE 01/05/2021
+* UPDATE 03/05/2021
 
 
 ![logo](https://telegra.ph/file/4e19dd26926234ca32b68.jpg)
@@ -51,6 +51,17 @@ https://github.com/2dust/v2rayNG)
 
 * Xtls port = 443
 
+## :book: Unistallation (Remove xray-core and all modified config files from the server) *will not remove BBR
+
+1) sudo rm  -rf  ~/bash-xray-script
+
+2) sudo git clone https://github.com/iamtrazy/bash-xray-script
+
+3) cd bash-xray-script
+
+4) sudo chmod 777 remove-xray.sh
+
+5) sudo ./remove-xray.sh
 
 ## :octocat: Credits
 
