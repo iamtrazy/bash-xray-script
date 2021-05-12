@@ -1,6 +1,6 @@
 # Bash|Xray-Script
 
-* UPDATE 03/05/2021 - Added Remove script
+* UPDATE 12/05/2021 - please don't use pointdns as your domain provider. Use duckdns instead
 
 
 ![logo](https://telegra.ph/file/4e19dd26926234ca32b68.jpg)
