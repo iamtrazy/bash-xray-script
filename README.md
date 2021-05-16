@@ -24,15 +24,19 @@ Manage Script
 
 1)apt-get update -y && apt-get upgrade -y
 
-2)sudo git clone https://github.com/iamtrazy/bash-xray-script
+2)sudo reboot
 
-3)cd bash-xray-script
+3)sudo ufw disable
 
-4)sudo chmod 777 xray.sh
+4)sudo git clone https://github.com/iamtrazy/bash-xray-script
 
-4)sudo ./xray.sh
+5)cd bash-xray-script
 
-5)UUID එකයි ඔයාගෙ DNS එකයි installation එක අතර තුරදි ඉල්ලයි එතකොට දෙන්න 
+6)sudo chmod 777 xray.sh
+
+7)sudo ./xray.sh
+
+8)UUID එකයි ඔයාගෙ DNS එකයි installation එක අතර තුරදි ඉල්ලයි එතකොට දෙන්න 
 
 ------------------------------------------
 
