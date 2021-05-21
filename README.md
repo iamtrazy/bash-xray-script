@@ -13,7 +13,7 @@ Xray-Script එක Use කරල ඔයාට High speed Network Connection එ�
 
 Manage Script
 
-## :heavy_exclamation_mark: Requerimientos
+## :heavy_exclamation_mark: Requirements
 
 * Ubuntu 20.04 or Ubuntu-latest Os එක සහිත Vps එකක්.
 * UUID එකක් (V2rayN මගින් හෝ http://uuidgenerator.net මගින් UUID එකක් Genarate කරගන්න).
