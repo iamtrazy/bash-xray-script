@@ -1,6 +1,7 @@
 # Bash|Xray-Script
 
 * UPDATE 12/05/2021 - please don't use pointdns as your domain provider. Use duckdns instead
+* UPDATE 21/05/2021 - added xray-nodomain script (see usage and installation below)
 
 
 ![logo](https://telegra.ph/file/4e19dd26926234ca32b68.jpg)
@@ -14,10 +15,26 @@ Manage Script
 
 ## :heavy_exclamation_mark: Requerimientos
 
-* Ubuntu 20.04  Os එක සහිත Vps එකක්
-* UUID එකක් (V2rayN මගින් හෝ http://uuidgenerator.net මගින් UUID එකක් Genarate කරගන්න)
-* DNS එකක් (DuckDns |Freenome)
-* DuckDns Use කරනවනම් ipv4 එකට ඔයාගෙ Vps එකෙ ip එක දාන්න Freenome site එකෙන් ගන්නවනම් Cloudflare Add කරන්න ඔනෙ)
+* Ubuntu 20.04 or Ubuntu-latest Os එක සහිත Vps එකක්.
+* UUID එකක් (V2rayN මගින් හෝ http://uuidgenerator.net මගින් UUID එකක් Genarate කරගන්න).
+* DNS එකක් (DuckDns |Freenome).
+* DuckDns Use කරනවනම් ipv4 එකට ඔයාගෙ Vps එකෙ ip එක දාන්න Freenome site එකෙන් ගන්නවනම් Cloudflare Add කරන්න ඔනෙ).
+* DNS use නොකර Ip එකෙන් direct connect කරගන්න xray-nodomain ස්ක්‍රිප්ට් එක භාවිතා කරන්න.
+
+------------------------------------------
+## :book: Installation - Without a Doamin
+
+1)apt-get update -y && apt-get upgrade -y
+
+2)sudo reboot (update එකෙන් පසු restart කිරීමට)
+
+4)sudo git clone https://github.com/iamtrazy/bash-xray-script
+
+5)cd bash-xray-script
+
+6)sudo chmod 777 xray-nodomain.sh
+
+7)sudo ./xray-nodomain.sh
 
 ------------------------------------------
 ## :book: Installation
