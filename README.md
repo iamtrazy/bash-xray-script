@@ -22,7 +22,7 @@ Manage Script
 * DNS use නොකර Ip එකෙන් direct connect කරගන්න xray-nodomain ස්ක්‍රිප්ට් එක භාවිතා කරන්න.
 
 ------------------------------------------
-## :book: Installation - Without a Doamin
+## :book: Installation - Without DNS
 
 1)apt-get update -y && apt-get upgrade -y
 
@@ -37,7 +37,7 @@ Manage Script
 7)sudo ./xray-nodomain.sh
 
 ------------------------------------------
-## :book: Installation
+## :book: Installation - With DNS
 
 1)apt-get update -y && apt-get upgrade -y
 
