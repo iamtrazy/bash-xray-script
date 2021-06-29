@@ -17,8 +17,6 @@ Manage Script
 
 * Ubuntu 20.04 or Ubuntu-latest Os එක සහිත Vps එකක්.
 * UUID එකක් (V2rayN මගින් හෝ http://uuidgenerator.net මගින් UUID එකක් Genarate කරගන්න).
-* DNS එකක් (DuckDns |Freenome).
-* DuckDns Use කරනවනම් ipv4 එකට ඔයාගෙ Vps එකෙ ip එක දාන්න Freenome site එකෙන් ගන්නවනම් Cloudflare Add කරන්න ඔනෙ).
 * DNS use නොකර Ip එකෙන් direct connect කරගන්න xray-nodomain ස්ක්‍රිප්ට් එක භාවිතා කරන්න.
 
 ------------------------------------------
@@ -35,25 +33,6 @@ Manage Script
 6)sudo chmod 777 xray-nodomain.sh
 
 7)sudo ./xray-nodomain.sh
-
-------------------------------------------
-## :book: Installation - With DNS
-
-1)apt-get update -y && apt-get upgrade -y
-
-2)sudo reboot
-
-3)sudo ufw disable
-
-4)sudo git clone https://github.com/iamtrazy/bash-xray-script
-
-5)cd bash-xray-script
-
-6)sudo chmod 777 xray.sh
-
-7)sudo ./xray.sh
-
-8)UUID එකයි ඔයාගෙ DNS එකයි installation එක අතර තුරදි ඉල්ලයි එතකොට දෙන්න 
 
 ------------------------------------------
 
