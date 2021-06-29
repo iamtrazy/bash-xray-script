@@ -1,6 +1,5 @@
 # Bash|Xray-Script
 
-* UPDATE 12/05/2021 - please don't use pointdns as your domain provider. Use duckdns instead
 * UPDATE 21/05/2021 - added xray-nodomain script (see usage and installation below)
 
 
