@@ -42,8 +42,17 @@ cat << EOF > /usr/local/etc/xray/config.json
         "decryption": "none",
         "fallbacks": [
           {
+            "dest": 1310,
+            "xver": 1
+          },
+          {
             "path": "/websocket",
             "dest": 1234,
+            "xver": 1
+          },
+          {
+            "path": "/vmesstcp",
+            "dest": 2345,
             "xver": 1
           },
           {
@@ -66,6 +75,32 @@ cat << EOF > /usr/local/etc/xray/config.json
               "keyFile": "/etc/xray/xray.key"
             }
           ]
+        }
+      }
+    },
+    {
+      "port": 1310,
+      "listen": "127.0.0.1",
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "password": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
+          }
+        ],
+        "fallbacks": [
+          {
+            "dest": 80
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none",
+        "tcpSettings": {
+          "acceptProxyProtocol": true
         }
       }
     },
@@ -93,6 +128,35 @@ cat << EOF > /usr/local/etc/xray/config.json
       }
     },
     {
+      "port": 2345,
+      "listen": "127.0.0.1",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none",
+        "tcpSettings": {
+          "acceptProxyProtocol": true,
+          "header": {
+            "type": "http",
+            "request": {
+              "path": [
+                "/vmesstcp"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
       "port": 3456,
       "listen": "127.0.0.1",
       "protocol": "vmess",
@@ -115,6 +179,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       }
     },
     {
+      "listen": "0.0.0.0",
       "port": 80,
       "protocol": "vmess",
       "settings": {
@@ -131,20 +196,23 @@ cat << EOF > /usr/local/etc/xray/config.json
         "tcpSettings": {
           "header": {
             "type": "http",
-            "response": {
+            "request": {
               "version": "1.1",
-              "status": "200",
-              "reason": "OK",
+              "method": "GET",
+              "path": [
+                "/"
+              ],
               "headers": {
-                "Content-Type": [
-                  "application/octet-stream",
-                  "video/mpeg",
-                  "application/x-msdownload",
-                  "text/html",
-                  "application/x-shockwave-flash"
+                "Host": [
+                  "c.whatsapp.net",
+                  "m.facebook.com"
                 ],
-                "Transfer-Encoding": [
-                  "chunked"
+                "User-Agent": [
+                  "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36",
+                  "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
+                ],
+                "Accept-Encoding": [
+                  "gzip, deflate"
                 ],
                 "Connection": [
                   "keep-alive"
@@ -153,8 +221,7 @@ cat << EOF > /usr/local/etc/xray/config.json
               }
             }
           }
-        },
-        "security": "none"
+        }
       }
     }
   ],
