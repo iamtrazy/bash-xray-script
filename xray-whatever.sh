@@ -41,6 +41,11 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
             "xver": 1
           },
           {
+            "alpn": "h2",
+            "dest": 2001,
+            "xver": 0
+          },
+          {
             "path": "/websocket",
             "dest": 1234,
             "xver": 1
@@ -62,8 +67,10 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
         "security": "xtls",
         "xtlsSettings": {
           "alpn": [
+            "h2",
             "http/1.1"
           ],
+          "minVersion": "1.2",
           "certificates": [
             {
               "certificateFile": "/etc/xray/xray.crt",
@@ -170,6 +177,25 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
         "wsSettings": {
           "acceptProxyProtocol": true,
           "path": "/vmessws"
+        }
+      }
+    },
+    {
+      "port": 2001,
+      "listen": "127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "grpc"
         }
       }
     }
