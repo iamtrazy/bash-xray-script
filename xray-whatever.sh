@@ -12,20 +12,15 @@ ufw disable
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
 rm -rf /usr/local/etc/xray/config.json
-cat << EOF > /usr/local/etc/xray/CONF0.json
+cat << EOF > /usr/local/etc/xray/config.json
 {
   "log": {
     "loglevel": "warning"
-  }
-}
-EOF
-cat << EOF > /usr/local/etc/xray/CONF1.json
-{
+  },
   "inbounds": [
     {
       "port": 443,
       "protocol": "vless",
-      "tag": "XTLS",
       "settings": {
         "clients": [
           {
@@ -37,28 +32,12 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
         "decryption": "none",
         "fallbacks": [
           {
-            "dest": 1310,
-            "xver": 1
+            "dest": 80
           },
           {
             "alpn": "h2",
             "dest": 2001,
             "xver": 0
-          },
-          {
-            "path": "/websocket",
-            "dest": 1234,
-            "xver": 1
-          },
-          {
-            "path": "/vmesstcp",
-            "dest": 2345,
-            "xver": 1
-          },
-          {
-            "path": "/vmessws",
-            "dest": 3456,
-            "xver": 1
           }
         ]
       },
@@ -70,113 +49,12 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
             "h2",
             "http/1.1"
           ],
-          "minVersion": "1.2",
           "certificates": [
             {
               "certificateFile": "/etc/xray/xray.crt",
               "keyFile": "/etc/xray/xray.key"
             }
           ]
-        }
-      }
-    },
-    {
-      "port": 1310,
-      "listen": "127.0.0.1",
-      "protocol": "trojan",
-      "tag": "TROJAN",
-      "settings": {
-        "clients": [
-          {
-            "password": "$UUID",
-            "level": 0
-          }
-        ],
-        "fallbacks": [
-          {
-            "dest": 80
-          }
-        ]
-      },
-      "streamSettings": {
-        "network": "tcp",
-        "security": "none",
-        "tcpSettings": {
-          "acceptProxyProtocol": true
-        }
-      }
-    },
-    {
-      "port": 1234,
-      "listen": "127.0.0.1",
-      "protocol": "vless",
-      "tag": "VLESS_WEBSOCKET",
-      "settings": {
-        "clients": [
-          {
-            "id": "$UUID",
-            "level": 0
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-          "acceptProxyProtocol": true,
-          "path": "/websocket"
-        }
-      }
-    },
-    {
-      "port": 2345,
-      "listen": "127.0.0.1",
-      "protocol": "vmess",
-      "tag": "VMESS_TCP",
-      "settings": {
-        "clients": [
-          {
-            "id": "$UUID",
-            "level": 0
-          }
-        ]
-      },
-      "streamSettings": {
-        "network": "tcp",
-        "security": "none",
-        "tcpSettings": {
-          "acceptProxyProtocol": true,
-          "header": {
-            "type": "http",
-            "request": {
-              "path": [
-                "/vmesstcp"
-              ]
-            }
-          }
-        }
-      }
-    },
-    {
-      "port": 3456,
-      "listen": "127.0.0.1",
-      "protocol": "vmess",
-      "tag": "VMESS_WEBSOCKET",
-      "settings": {
-        "clients": [
-          {
-            "id": "$UUID",
-            "level": 0
-          }
-        ]
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-          "acceptProxyProtocol": true,
-          "path": "/vmessws"
         }
       }
     },
@@ -198,17 +76,10 @@ cat << EOF > /usr/local/etc/xray/CONF1.json
           "serviceName": "grpc"
         }
       }
-    }
-  ]
-}
-EOF
-cat << EOF > /usr/local/etc/xray/CONF2.json
-{
-  "inbounds": [
+    },
     {
       "port": 80,
       "protocol": "vmess",
-      "tag": "VMESS_HTTP",
       "settings": {
         "clients": [
           {
@@ -247,11 +118,7 @@ cat << EOF > /usr/local/etc/xray/CONF2.json
         "security": "none"
       }
     }
-  ]
-}
-EOF
-cat << EOF > /usr/local/etc/xray/CONF3.json
-{
+  ],
   "outbounds": [
     {
       "protocol": "freedom"
@@ -268,9 +135,6 @@ cp xray.key /etc/xray/xray.key
 cp xray.crt /etc/xray/xray.crt
 chmod 644 /etc/xray/xray.key
 
-sed -i 's/-config/-confdir/g' /etc/systemd/system/xray.service.d/10-donot_touch_single_conf.conf
-sed -i 's/\/config.json/\//g' /etc/systemd/system/xray.service.d/10-donot_touch_single_conf.conf
-systemctl daemon-reload
 systemctl enable xray
 systemctl restart xray
 
