@@ -32,7 +32,7 @@ cat << EOF > /usr/local/etc/xray/config.json
         "decryption": "none",
         "fallbacks": [
           {
-            "dest": www.google.lk:443
+            "dest": "www.google.lk:443"
           },
           {
             "alpn": "h2",
