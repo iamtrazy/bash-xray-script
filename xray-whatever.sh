@@ -9,7 +9,7 @@ date -R
 
 ufw disable
 
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version v1.4.2
 
 rm -rf /usr/local/etc/xray/config.json
 cat << EOF > /usr/local/etc/xray/config.json
@@ -32,7 +32,7 @@ cat << EOF > /usr/local/etc/xray/config.json
         "decryption": "none",
         "fallbacks": [
           {
-            "dest": 80
+            "dest": www.google.lk:443
           },
           {
             "alpn": "h2",
