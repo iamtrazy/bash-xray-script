@@ -9,7 +9,7 @@ date -R
 
 ufw disable
 
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version v1.4.2
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
 rm -rf /usr/local/etc/xray/config.json
 cat << EOF > /usr/local/etc/xray/config.json
