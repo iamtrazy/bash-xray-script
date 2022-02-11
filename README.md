@@ -44,8 +44,6 @@ https://github.com/2dust/v2rayNG)
 
 ![logo](https://telegra.ph/file/372eb568ce7a7776aa8c4.jpg)
 
-* AlterId   =   4
-
 * Http Port =  80
 
 * Xtls port = 443
