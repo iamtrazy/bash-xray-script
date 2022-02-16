@@ -1,4 +1,4 @@
-# Bash|Xray-Script
+# Bash | Xray-Script
 
 * UPDATE 21/05/2021 - added xray-nodomain script (see usage and installation below)
 
@@ -21,17 +21,12 @@ Manage Script
 ------------------------------------------
 ## :book: Installation - Without DNS
 
-1)apt-get update -y && apt-get upgrade -y
-
-2)sudo reboot (update එකෙන් පසු restart කිරීමට)
-
-4)sudo git clone https://github.com/iamtrazy/bash-xray-script
-
-5)cd bash-xray-script
-
-6)sudo chmod 777 xray-nodomain.sh
-
-7)sudo ./xray-nodomain.sh
+```
+apt-get update -y && apt-get upgrade -y; sudo reboot
+```
+```
+sudo git clone https://github.com/iamtrazy/bash-xray-script; cd bash-xray-script; sudo chmod 777 xray-nodomain.sh; sudo ./xray-nodomain.sh
+```
 
 ------------------------------------------
 
