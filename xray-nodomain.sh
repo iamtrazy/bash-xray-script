@@ -3,7 +3,7 @@
 #input uuid & domain
 
 echo Enter a valid gen4 UUID:
-read uuid
+read UUID
 
 #configure timezone to sri lanka standards
 
@@ -21,119 +21,162 @@ bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release
 #adding new configuration files 
 
 rm -rf /usr/local/etc/xray/config.json
-cat << EOF > /usr/local/etc/xray/config0.json
+cat << EOF > /usr/local/etc/xray/config.json
 {
-    "inbounds": [
-	{
-	"port": 80,
-	"protocol": "vmess",
-	"tag":"http",
-	"settings": {
-		"clients": [
-					{
-						"id": "$uuid",
-						"level": 1,
-						"alterId": 4,
-						"security": "auto"
-					}
-		]
-	},
-	"streamSettings": {
-		"network": "tcp",
-		"tcpSettings": {
-			"header": {
-				"type": "http",
-				"response": {
-					"version": "1.1",
-					"status": "200",
-					"reason": "OK",
-					"headers": {
-						"Content-encoding": [
-							"gzip"
-						],
-						"Content-Type": [
-							"text/html; charset=utf-8"
-						],
-						"Cache-Control": [
-							"no-cache"
-						],
-						"Vary": [
-							"Accept-Encoding"
-						],
-						"X-Frame-Options": [
-							"deny"
-						],
-						"X-XSS-Protection": [
-							"1; mode=block"
-						],
-						"X-content-type-options": [
-							"nosniff"
-						]
-					}
-				}
-			}
-		}
-	},
-	"sniffing": {
-		"enabled": true,
-		"destOverride": [
-			"http",
-			"tls"
-		]
-	}
-}
-]
-}
-EOF
-cat << EOF > /usr/local/etc/xray/config1.json
-{
-    "inbounds": [
-	{
-            "port": 443,
-            "protocol": "vless",
-			"tag":"XTLS",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$uuid",
-                        "flow": "xtls-rprx-direct",
-                        "level": 0
-                    }
-                ],
-                "decryption": "none",
-				"fallbacks": [
-                    {
-                        "dest": "www.baidu.com:80"
-                    }
-                ]
-            },
-            "streamSettings": {
-                "network": "tcp",
-                "security": "xtls",
-                "xtlsSettings": {
-                    "alpn": [
-                        "http/1.1"
-                    ],
-                    "certificates": [
-                        {
-                            "certificateFile": "/etc/xray/xray.crt",
-                            "keyFile": "/etc/xray/xray.key"
-                        }
-                    ]
-                }
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "1.1.1.1"
+    ],
+    "queryStrategy": "UseIPv4"
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "1.1.1.1"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "block"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "flow": "xtls-rprx-direct"
+          }
+        ],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "alpn": "h2",
+            "dest": "2001",
+            "xver": 0
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "xtls",
+        "xtlsSettings": {
+          "minVersion": "1.3",
+          "cipherSuites": "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ],
+          "certificates": [
+            {
+              "certificateFile": "/etc/xray/xray.crt",
+              "keyFile": "/etc/xray/xray.key"
             }
+          ]
         }
-	]
-}
-EOF
-cat << EOF > /usr/local/etc/xray/config2.json
-{
-    "outbounds": [
-	{
-      "protocol": "freedom",
-      "settings": {}
+      }
+    },
+    {
+      "port": 2001,
+      "listen": "127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "grpc"
+        }
+      }
+    },
+    {
+      "port": 80,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {
+          "header": {
+            "type": "http",
+            "response": {
+              "version": "1.1",
+              "status": "200",
+              "reason": "OK",
+              "headers": {
+                "Content-Type": [
+                  "application/octet-stream",
+                  "video/mpeg",
+                  "application/x-msdownload",
+                  "text/html",
+                  "application/x-shockwave-flash"
+                ],
+                "Transfer-Encoding": [
+                  "chunked"
+                ],
+                "Connection": [
+                  "keep-alive"
+                ],
+                "Pragma": "no-cache"
+              }
+            }
+          }
+        },
+        "security": "none"
+      }
     }
-	]
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      },
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ]
 }
 EOF
 
@@ -149,14 +192,6 @@ chmod 644 /etc/xray/xray.key
 
 #starting xray core on sytem startup
 
-cat << EOF > /etc/systemd/system/xray.service.d/10-donot_touch_single_conf.conf
-# In case you have a good reason to do so, duplicate this file in the same directory and make your customizes there.
-# Or all changes you made will be lost!  # Refer: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
-[Service]
-ExecStart=
-ExecStart=/usr/local/bin/xray run -confdir /usr/local/etc/xray/
-EOF
-systemctl daemon-reload
 systemctl enable xray
 systemctl restart xray
 
