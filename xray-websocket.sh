@@ -16,7 +16,7 @@ apt install ufw
 #firewall rules
 ufw allow 'OpenSSH'
 ufw allow 443/tcp
-ufw allow 80/8cp
+ufw allow 80/tcp
 ufw enable
 
 #running xray install script for linux - systemd
