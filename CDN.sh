@@ -87,39 +87,40 @@ EOF
 mkdir /etc/caddy
 cat << EOF > /etc/caddy/Caddyfile
 {
-  order reverse_proxy before route
-  admin off
-  log {
-    output file /var/log/caddy/access.log
-    level ERROR
-  }
+	order reverse_proxy before route
+	admin off
+	log {
+		output file /var/log/caddy/access.log
+		level ERROR
+	}
 }
 
 :443, $DOMAIN_NAME {
-  tls {
-    ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
-    alpn http/1.1 h2
-  }
+	tls {
+		ciphers TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+		alpn http/1.1 h2
+	}
 
-  @vws {
-    path /iamtrazy
-    header Connection *Upgrade*
-    header Upgrade websocket
-  }
-  reverse_proxy @vws unix//dev/shm/vws.sock
+	@vws {
+		path /iamtrazy
+		header Connection *Upgrade*
+		header Upgrade websocket
+	}
+	reverse_proxy @vws unix//dev/shm/vws.sock
 
-  @host {
-    host $DOMAIN_NAME
-  }
-  route @host {
-    header {
-      Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-    }
-    file_server {
-      root /var/www/$DOMAIN_NAME/html
-    }
-  }
+	@host {
+		host $DOMAIN_NAME
+	}
+	route @host {
+		header {
+			Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		}
+		file_server {
+			root /var/www/$DOMAIN_NAME/html
+		}
+	}
 }
+
 EOF
 
 #Fake website
