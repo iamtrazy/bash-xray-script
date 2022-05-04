@@ -215,7 +215,7 @@ EOF
 curl -LJO https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
 bash bbr.sh
 
-#starting cadd & xray
+#starting caddy & xray
 
 systemctl daemon-reload
 
