@@ -14,6 +14,7 @@ apt install ufw
 ufw allow 'OpenSSH'
 ufw allow 443/tcp
 ufw allow 80/tcp
+ufw enable
 
 #installing latest caddy
 
@@ -36,9 +37,6 @@ else
     echo "error: This operating system is not supported."
     exit 1
 fi
-
-echo $VERSION
-echo $MACHINE
 
 VERSION_NO="${VERSION:1}"
 
