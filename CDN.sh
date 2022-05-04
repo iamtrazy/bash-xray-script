@@ -120,7 +120,6 @@ cat << EOF > /etc/caddy/Caddyfile
 		}
 	}
 }
-
 EOF
 
 #Fake website
