@@ -48,7 +48,7 @@ TARBALL="caddy_"$VERSION_NO"_linux_"$MACHINE".tar.gz"
 
 curl -LJO $DOWNLOAD_LINK
 
-tar -xvf TARBALL
+tar -xvf $TARBALL
 
 mv caddy /usr/local/bin
 
