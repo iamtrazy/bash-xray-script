@@ -7,7 +7,12 @@ rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
 
-ufw disable
+apt install ufw
+
+#firewall rules
+ufw allow 'OpenSSH'
+ufw allow 443/tcp
+ufw enable
 
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
 
@@ -15,7 +20,7 @@ rm -rf /usr/local/etc/xray/config.json
 cat << EOF > /usr/local/etc/xray/config.json
 {
   "log": {
-    "loglevel": "warning"
+    "loglevel": "none"
   },
   "inbounds": [
     {
@@ -26,18 +31,30 @@ cat << EOF > /usr/local/etc/xray/config.json
           {
             "id": "$UUID",
             "flow": "xtls-rprx-direct",
-            "level": 0
+            "level": 0,
+            "email": "love@example.com"
           }
         ],
         "decryption": "none",
         "fallbacks": [
           {
-            "dest": "www.google.lk:443"
+            "dest": 1310,
+            "xver": 1
           },
           {
-            "alpn": "h2",
-            "dest": 2001,
-            "xver": 0
+            "path": "/websocket",
+            "dest": 1234,
+            "xver": 1
+          },
+          {
+            "path": "/vmesstcp",
+            "dest": 2345,
+            "xver": 1
+          },
+          {
+            "path": "/vmessws",
+            "dest": 3456,
+            "xver": 1
           }
         ]
       },
@@ -46,7 +63,6 @@ cat << EOF > /usr/local/etc/xray/config.json
         "security": "xtls",
         "xtlsSettings": {
           "alpn": [
-            "h2",
             "http/1.1"
           ],
           "certificates": [
@@ -59,63 +75,103 @@ cat << EOF > /usr/local/etc/xray/config.json
       }
     },
     {
-      "port": 2001,
+      "port": 1310,
       "listen": "127.0.0.1",
-      "protocol": "vless",
+      "protocol": "trojan",
       "settings": {
         "clients": [
           {
-            "id": "$UUID"
+            "password": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
           }
         ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "grpc",
-        "grpcSettings": {
-          "serviceName": "grpc"
-        }
-      }
-    },
-    {
-      "port": 80,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
+        "fallbacks": [
           {
-            "id": "$UUID"
+            "dest": 80
           }
         ]
       },
       "streamSettings": {
         "network": "tcp",
+        "security": "none",
         "tcpSettings": {
+          "acceptProxyProtocol": true
+        }
+      }
+    },
+    {
+      "port": 1234,
+      "listen": "127.0.0.1",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/websocket"
+        }
+      }
+    },
+    {
+      "port": 2345,
+      "listen": "127.0.0.1",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none",
+        "tcpSettings": {
+          "acceptProxyProtocol": true,
           "header": {
             "type": "http",
-            "response": {
-              "version": "1.1",
-              "status": "200",
-              "reason": "OK",
-              "headers": {
-                "Content-Type": [
-                  "application/octet-stream",
-                  "video/mpeg",
-                  "application/x-msdownload",
-                  "text/html",
-                  "application/x-shockwave-flash"
-                ],
-                "Transfer-Encoding": [
-                  "chunked"
-                ],
-                "Connection": [
-                  "keep-alive"
-                ],
-                "Pragma": "no-cache"
-              }
+            "request": {
+              "path": [
+                "/vmesstcp"
+              ]
             }
           }
-        },
-        "security": "none"
+        }
+      }
+    },
+    {
+      "port": 3456,
+      "listen": "127.0.0.1",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "$UUID",
+            "level": 0,
+            "email": "love@example.com"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/vmessws"
+        }
       }
     }
   ],
@@ -127,6 +183,8 @@ cat << EOF > /usr/local/etc/xray/config.json
 }
 EOF
 
+#accuring a ssl certificate (self-sigend openssl)
+
 openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
     -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" \
     -keyout xray.key  -out xray.crt
@@ -135,8 +193,12 @@ cp xray.key /etc/xray/xray.key
 cp xray.crt /etc/xray/xray.crt
 chmod 644 /etc/xray/xray.key
 
+#starting xray core on sytem startup
+
 systemctl enable xray
 systemctl restart xray
+
+#install bbr
 
 mkdir ~/across
 git clone https://github.com/teddysun/across ~/across
