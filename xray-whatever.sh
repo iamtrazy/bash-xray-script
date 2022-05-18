@@ -7,9 +7,13 @@ rm -rf /etc/localtime
 cp /usr/share/zoneinfo/Asia/Colombo /etc/localtime
 date -R
 
-apt install ufw
 
-#firewall rules
+#updating and adding firewall rules
+
+apt update
+apt upgrade
+apt purge iptables-persistent
+apt install ufw
 ufw allow 'OpenSSH'
 ufw allow 443/tcp
 ufw enable
@@ -200,7 +204,5 @@ systemctl restart xray
 
 #install bbr
 
-mkdir ~/across
-git clone https://github.com/teddysun/across ~/across
-chmod 777 ~/across
-bash ~/across/bbr.sh
+curl -LJO https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
+bash bbr.sh
