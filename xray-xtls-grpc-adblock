@@ -140,10 +140,12 @@ cp xray.key /etc/xray/xray.key
 cp xray.crt /etc/xray/xray.crt
 chmod 644 /etc/xray/xray.key
 
+#starting xray core on sytem startup
+
 systemctl enable xray
 systemctl restart xray
 
-mkdir ~/across
-git clone https://github.com/teddysun/across ~/across
-chmod 777 ~/across
-bash ~/across/bbr.sh
+#install bbr
+
+curl -LJO https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
+bash bbr.sh
