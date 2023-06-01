@@ -1,5 +1,9 @@
 # Bash|Xray-Script
 
+* UPDATE 01/06/2023 - configs ae now moved from xtls-rprx-direct to xtls-rprx-vision
+
+please use tls and flow xtls-rprx-vision to use new protocol and speed imrovements
+
 * UPDATE 21/05/2021 - added xray-nodomain script (see usage and installation below)
 
 
