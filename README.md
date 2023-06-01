@@ -33,9 +33,9 @@ Manage Script
 
 5)cd bash-xray-script
 
-6)sudo chmod +x xray-nodomain.sh
+6)sudo chmod +x xray-whatever.sh
 
-7)sudo ./xray-nodomain.sh
+7)sudo ./xray-whatever.sh
 
 ------------------------------------------
 
