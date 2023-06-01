@@ -34,7 +34,7 @@ cat << EOF > /usr/local/etc/xray/config.json
         "clients": [
           {
             "id": "$UUID",
-            "flow": "xtls-rprx-direct",
+            "flow": "xtls-rprx-vision",
             "level": 0,
             "email": "love@example.com"
           }
@@ -64,7 +64,7 @@ cat << EOF > /usr/local/etc/xray/config.json
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "xtls",
+        "security": "tls",
         "xtlsSettings": {
           "alpn": [
             "http/1.1"
@@ -204,5 +204,6 @@ systemctl restart xray
 
 #install bbr
 
-curl -LJO https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
-bash bbr.sh
+wget -P /tmp https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
+chmod +x /tmp/bbr.sh
+/tmp/bbr.sh

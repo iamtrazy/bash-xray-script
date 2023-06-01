@@ -210,8 +210,9 @@ EOF
 
 #installing bbr
 
-curl -LJO https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
-bash bbr.sh
+wget -P /tmp https://raw.githubusercontent.com/teddysun/across/master/bbr.sh
+chmod +x /tmp/bbr.sh
+/tmp/bbr.sh
 
 #starting caddy & xray
 
