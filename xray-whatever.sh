@@ -18,7 +18,7 @@ ufw allow 'OpenSSH'
 ufw allow 443/tcp
 ufw enable
 
-bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install
+bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install --version v1.8.1
 
 rm -rf /usr/local/etc/xray/config.json
 cat << EOF > /usr/local/etc/xray/config.json
