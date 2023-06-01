@@ -42,11 +42,10 @@ https://github.com/2dust/v2rayNG)
 
 2)Windows User කෙනෙක්නම් V2rayN හො Netch Software දෙක Download කරගන්න
 
-![logo](https://telegra.ph/file/372eb568ce7a7776aa8c4.jpg)
 
 * Http Port =  80
 
-* Xtls port = 443
+* tls port = 443
 
 ## :book: Unistallation (Remove xray-core and all modified config files from the server) *will not remove BBR
 
@@ -56,7 +55,7 @@ https://github.com/2dust/v2rayNG)
 
 3) cd bash-xray-script
 
-4) sudo chmod 777 remove-xray.sh
+4) sudo chmod +x remove-xray.sh
 
 5) sudo ./remove-xray.sh
 
