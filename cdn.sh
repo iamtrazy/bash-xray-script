@@ -102,7 +102,7 @@ cat << EOF > /etc/caddy/Caddyfile
 	}
 
 	@vws {
-		path /iamtrazy
+		path /xConfigZ
 		header Connection *Upgrade*
 		header Upgrade websocket
 	}
@@ -171,7 +171,7 @@ cat << EOF > /usr/local/etc/xray/config.json
         "network": "ws",
         "security": "none",
         "wsSettings": {
-          "path": "/iamtrazy"
+          "path": "/xConfigZ"
         }
       },
       "sniffing": {
